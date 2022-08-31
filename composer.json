@@ -1,8 +1,8 @@
 {
-    "name": "wazaari/kasapi-php",
+    "name": "kveldscholten/kasapi-php",
     "description": "Manage your All-Inkl account with the KAS API for PHP",
     "keywords": ["all-inkl", "API", "KAS", "PHP", "WSDL"],
-    "homepage": "https://github.com/waza-ari/kasapi-php",
+    "homepage": "https://github.com/kveldscholten/kasapi-php",
     "license": "MIT",
     "authors": [
         {
