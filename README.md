@@ -15,10 +15,10 @@ The recommended installation method is to use Composer. This software is [availa
 Just add the following line to the `require` section of your `composer.json`:
 
 ```
- "wazaari/kasapi-php": "dev-master"
+ "kveldscholten/kasapi-php": "dev-master"
 ```
 
-Alternatively you can clone the following Git repository (`git clone https://github.com/waza-ari/kasapi-php.git`, see below).
+Alternatively you can clone the following Git repository (`git clone https://github.com/kveldscholten/kasapi-php.git`, see below).
 
 ### Usage
 
@@ -92,21 +92,6 @@ try {
 ?>
 ```
 If you have any feedback, please provide it as comment or issue using GitHub and the URL above.
-
-## Changelog
-
-#### Version 0.5
-
-* Starting from version 0.5, this project is now released under the [MIT license](http://opensource.org/licenses/MIT). A copy can also be found in this repository. Further, the former GPL license has been removed.
-
-#### Version 0.4
-
-* Minor fix to prevent a Warning while fetching parameters from arguments
-
-#### Version 0.3
-
-* Initial version of this library, created by [Elias Kuiter](https://github.com/ekuiter/) and extended by [Daniel Herrmann](https://github.com/waza-ari/).
-* Composer support was added.
 
 ## Credits
 
