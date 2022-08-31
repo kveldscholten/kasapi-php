@@ -10,7 +10,7 @@ This is a PHP implementation of the API, which provides simple access to all fun
 
 ### Installation
 
-The recommended installation method is to use Composer. This software is [available at Packagist](https://packagist.org/packages/wazaari/kasapi-php).
+The recommended installation method is to use Composer. This software is [available at Packagist](https://packagist.org/packages/kveldscholten/kasapi-php).
 
 Just add the following line to the `require` section of your `composer.json`:
 
