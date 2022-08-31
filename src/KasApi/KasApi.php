@@ -1,6 +1,7 @@
 <?php
 
 namespace KasApi;
+
 use SoapFault;
 
 /**
@@ -10,82 +11,83 @@ use SoapFault;
  * @package KasApi
  *
  * @method get_accountresources()
- * @method get_accounts( array $params )
+ * @method get_accounts(array $params)
  * @method get_accountsettings()
  * @method get_server_information()
- * @method get_cronjobs( array $params )
- * @method get_databases( array $params )
- * @method get_ddnsusers( array $params )
- * @method get_directoryprotection( array $params )
- * @method get_dns_settings( array $params )
- * @method get_domains( array $params )
+ * @method get_cronjobs(array $params)
+ * @method get_databases(array $params)
+ * @method get_ddnsusers(array $params)
+ * @method get_directoryprotection(array $params)
+ * @method get_dns_settings(array $params)
+ * @method get_domains(array $params)
  * @method get_topleveldomains()
- * @method get_ftpusers( array $params )
- * @method get_mailaccounts( array $params )
+ * @method get_ftpusers(array $params)
+ * @method get_mailaccounts(array $params)
  * @method get_mailstandardfilter()
- * @method get_mailforwards( array $params )
- * @method get_mailinglists( array $params )
- * @method get_softwareinstall( array $params )
- * @method get_space( array $params )
- * @method get_space_usage( array $params )
- * @method get_traffic( array $params )
- * @method get_subdomains( array $params )
- * @method get_dkim( array $params )
- * @method add_account( array $params )
- * @method add_cronjob( array $params )
- * @method add_database( array $params )
- * @method add_ddnsuser( array $params )
- * @method add_directoryprotection( array $params )
- * @method add_dns_settings( array $params )
- * @method add_domain( array $params )
- * @method add_ftpuser( array $params )
- * @method delete_account( array $params )
- * @method update_account( array $params )
- * @method update_accountsettings( array $params )
- * @method update_superusersettings( array $params )
- * @method update_chown( array $params )
- * @method delete_cronjob( array $params )
- * @method update_cronjob( array $params )
- * @method delete_database( array $params )
- * @method update_database( array $params )
- * @method delete_ddnsuser( array $params )
- * @method update_ddnsuser( array $params )
- * @method delete_directoryprotection( array $params )
- * @method update_directoryprotection( array $params )
- * @method delete_dns_settings( array $params )
- * @method reset_dns_settings( array $params )
- * @method update_dns_settings( array $params )
- * @method delete_domain( array $params )
- * @method update_domain( array $params )
- * @method move_domain( array $params )
- * @method delete_ftpuser( array $params )
- * @method update_ftpuser( array $params )
- * @method add_mailaccount( array $params )
- * @method delete_mailaccount( array $params )
- * @method update_mailaccount( array $params )
- * @method add_mailstandardfilter( array $params )
- * @method delete_mailstandardfilter( array $params )
- * @method add_mailforward( array $params )
- * @method delete_mailforward( array $params )
- * @method update_mailforward( array $params )
- * @method add_mailinglist( array $params )
- * @method delete_mailinglist( array $params )
- * @method update_mailinglist( array $params )
- * @method add_sambauser( array $params )
- * @method delete_sambauser( array $params )
- * @method update_sambauser( array $params )
- * @method add_session( array $params )
- * @method add_softwareinstall( array $params )
- * @method add_subdomain( array $params )
- * @method delete_subdomain( array $params )
- * @method update_subdomain( array $params )
- * @method move_subdomain( array $params )
- * @method add_dkim( array $params )
- * @method delete_dkim( array $params )
- * @method update_ssl( array $params )
- * @method add_symlink( array $params )
+ * @method get_mailforwards(array $params)
+ * @method get_mailinglists(array $params)
+ * @method get_softwareinstall(array $params)
+ * @method get_space(array $params)
+ * @method get_space_usage(array $params)
+ * @method get_traffic(array $params)
+ * @method get_subdomains(array $params)
+ * @method get_dkim(array $params)
+ * @method add_account(array $params)
+ * @method add_cronjob(array $params)
+ * @method add_database(array $params)
+ * @method add_ddnsuser(array $params)
+ * @method add_directoryprotection(array $params)
+ * @method add_dns_settings(array $params)
+ * @method add_domain(array $params)
+ * @method add_ftpuser(array $params)
+ * @method delete_account(array $params)
+ * @method update_account(array $params)
+ * @method update_accountsettings(array $params)
+ * @method update_superusersettings(array $params)
+ * @method update_chown(array $params)
+ * @method delete_cronjob(array $params)
+ * @method update_cronjob(array $params)
+ * @method delete_database(array $params)
+ * @method update_database(array $params)
+ * @method delete_ddnsuser(array $params)
+ * @method update_ddnsuser(array $params)
+ * @method delete_directoryprotection(array $params)
+ * @method update_directoryprotection(array $params)
+ * @method delete_dns_settings(array $params)
+ * @method reset_dns_settings(array $params)
+ * @method update_dns_settings(array $params)
+ * @method delete_domain(array $params)
+ * @method update_domain(array $params)
+ * @method move_domain(array $params)
+ * @method delete_ftpuser(array $params)
+ * @method update_ftpuser(array $params)
+ * @method add_mailaccount(array $params)
+ * @method delete_mailaccount(array $params)
+ * @method update_mailaccount(array $params)
+ * @method add_mailstandardfilter(array $params)
+ * @method delete_mailstandardfilter(array $params)
+ * @method add_mailforward(array $params)
+ * @method delete_mailforward(array $params)
+ * @method update_mailforward(array $params)
+ * @method add_mailinglist(array $params)
+ * @method delete_mailinglist(array $params)
+ * @method update_mailinglist(array $params)
+ * @method add_sambauser(array $params)
+ * @method delete_sambauser(array $params)
+ * @method update_sambauser(array $params)
+ * @method add_session(array $params)
+ * @method add_softwareinstall(array $params)
+ * @method add_subdomain(array $params)
+ * @method delete_subdomain(array $params)
+ * @method update_subdomain(array $params)
+ * @method move_subdomain(array $params)
+ * @method add_dkim(array $params)
+ * @method delete_dkim(array $params)
+ * @method update_ssl(array $params)
+ * @method add_symlink(array $params)
  */
-class KasApi {
+class KasApi
+{
     /**
      * KasConfiguration object
      *
@@ -98,19 +100,21 @@ class KasApi {
      */
     protected $kasFloodDelay;
 
-	/**
-	 * @var int $nextCallTimestamp Timestamp of when the next api call is allowed
-	 */
+    /**
+     * @var int $nextCallTimestamp Timestamp of when the next api call is allowed
+     */
     protected $nextCallTimestamp = 0;
 
     /**
      * @return String
      */
-    public function getKasFloodDelay() {
+    public function getKasFloodDelay()
+    {
         return $this->kasFloodDelay;
     }
 
     // contains all API functions and their parameters, adjust if the KAS API was updated
+
     /**
      * Contains every API function and its parameters.
      * Adjust if the KAS API is updated; ! means required parameter
@@ -140,17 +144,13 @@ class KasApi {
         'get_traffic' => 'year', 'month',
         'get_subdomains' => 'subdomain_name',
         'get_dkim' => 'host!',
-        'add_account' => 'account_kas_password!, account_ftp_password!, account_comment, account_contact_mail, hostname_art,
-                                  hostname_part1, hostname_part2, hostname_path, max_account, max_domain, max_subdomain, max_webspace, max_mail_account,
-                                  max_mail_forward, max_mailinglist, max_database, max_ftpuser, max_sambauser, max_cronjobs, inst_htaccess,
-                                  inst_fpse, kas_access_forbidden, inst_software, logging, logage, statistic, dns_settings, show_password',
-        'add_cronjob' => 'protocol!, http_url!, cronjob_comment!, minute!, hour!, day_of_month!, month!, day_of_week!, http_user,
-                                  http_password, mail_address, mail_condition, mail_subject, is_active',
+        'add_account' => 'account_kas_password!, account_ftp_password!, account_comment, account_contact_mail, hostname_art, hostname_part1, hostname_part2, hostname_path, max_account, max_domain, max_subdomain, max_webspace, max_mail_account, max_mail_forward, max_mailinglist, max_database, max_ftpuser, max_sambauser, max_cronjobs, inst_htaccess, inst_fpse, kas_access_forbidden, inst_software, logging, logage, statistic, dns_settings, show_password',
+        'add_cronjob' => 'protocol!, http_url!, cronjob_comment!, minute!, hour!, day_of_month!, month!, day_of_week!, http_user, http_password, mail_address, mail_condition, mail_subject, is_active',
         'add_database' => 'database_password!, database_comment!, database_allowed_hosts',
         'add_ddnsuser' => 'dyndns_comment!, dyndns_password!, dyndns_zone!, dyndns_label!, dyndns_target_ip!',
         'add_directoryprotection' => 'directory_user!, directory_path!, directory_password!, directory_authname!',
         'add_dns_settings' => 'zone_host!, record_type!, record_name!, record_data!, record_aux!',
-        'add_domain' => 'domain_name!, domain_tld!, domain_path, redirect_status, statistic_version, statistic_language, php_version',
+        'add_domain' => 'domain_name!, domain_tld!, domain_path, redirect_status, statistic_version, statistic_language,php_version',
         'add_ftpuser' => 'ftp_password!, ftp_comment!, ftp_path, ftp_permission_read, ftp_permission_write, ftp_permission_list, ftp_virus_clamav',
         'delete_account' => 'account_login!',
         'update_account' => 'account_login!, account_kas_password!, max_account, max_domain, max_subdomain, max_webspace, max_mail_account, max_mail_forward, max_mailinglist, max_database, max_ftpuser, max_sambauser, max_cronjobs, inst_htaccess, inst_fpse, kas_access_forbidden, show_password, inst_software, logging, logage, statistic, dns_settings, account_comment, account_contact_mail',
@@ -204,7 +204,8 @@ class KasApi {
      *
      * @param object $kas_configuration
      */
-    function __construct($kas_configuration) {
+    function __construct($kas_configuration)
+    {
         $this->kasConfiguration = $kas_configuration;
     }
 
@@ -214,14 +215,15 @@ class KasApi {
      *
      * @param string $function
      * @param array $params
-     * @throws KasApiException
      * @return string
+     * @throws KasApiException
      */
-    protected function call($function, $params = array()) {
+    protected function call($function, $params = array())
+    {
         try {
-        	if ($this->kasConfiguration->_autoDelayApiCalls && ($now = time()) < $this->nextCallTimestamp) {
-        		sleep($this->nextCallTimestamp - $now);
-	        }
+            if ($this->kasConfiguration->_autoDelayApiCalls && ($now = time()) < $this->nextCallTimestamp) {
+                sleep($this->nextCallTimestamp - $now);
+            }
             $data = array('KasUser' => $this->kasConfiguration->_username,
                 'KasAuthType' => $this->kasConfiguration->_authType,
                 'KasAuthData' => $this->kasConfiguration->_authData,
@@ -234,7 +236,7 @@ class KasApi {
             $this->nextCallTimestamp = time() + (int)$this->kasFloodDelay;
             return $result['Response']['ReturnInfo'];
         } catch (SoapFault $fault) {
-            throw new KasApiException('Unable to execute SOAP call '.$function.': '.(isset($fault->faultstring) ? $fault->faultstring : ""), (isset($fault->faultcode) ? $fault->faultcode : ""), (isset($fault->faultstring) ? $fault->faultstring : ""), (isset($fault->faultfactor) ? $fault->faultfactor : ""), (isset($fault->detail) ? $fault->detail : ""));
+            throw new KasApiException('Unable to execute SOAP call ' . $function . ': ' . (isset($fault->faultstring) ? $fault->faultstring : ""), (isset($fault->faultcode) ? $fault->faultcode : ""), (isset($fault->faultstring) ? $fault->faultstring : ""), (isset($fault->faultfactor) ? $fault->faultfactor : ""), (isset($fault->detail) ? $fault->detail : ""));
         }
     }
 
@@ -244,7 +246,8 @@ class KasApi {
      * @param string $function
      * @return boolean
      */
-    protected function functionExists($function) {
+    protected function functionExists($function)
+    {
         return array_key_exists($function, $this->functions) ? true : false;
     }
 
@@ -254,7 +257,8 @@ class KasApi {
      * @param string $param
      * @return boolean
      */
-    protected function paramIsRequired($param) {
+    protected function paramIsRequired($param)
+    {
         return substr($param, -1) === "!" ? true : false;
     }
 
@@ -264,7 +268,8 @@ class KasApi {
      * @param array $arguments
      * @return array
      */
-    protected function getParamsFromArguments($arguments) {
+    protected function getParamsFromArguments($arguments)
+    {
         return isset($arguments[0]) ? $arguments[0] : array();
     }
 
@@ -274,7 +279,8 @@ class KasApi {
      * @param string $function
      * @return string[]
      */
-    protected function allowedParams($function) {
+    protected function allowedParams($function)
+    {
         $params = explode(',', $this->functions[$function]);
         return array_map('trim', $params);
     }
@@ -285,7 +291,8 @@ class KasApi {
      * @param string $function
      * @return String[]
      */
-    protected function requiredParams($function) {
+    protected function requiredParams($function)
+    {
         $params = array_map('trim', explode(',', $this->functions[$function]));
         $required_params = array();
         foreach ($params as $param)
@@ -301,9 +308,10 @@ class KasApi {
      * @param string $function
      * @return boolean
      */
-    protected function paramIsAllowed($param, $function) {
+    protected function paramIsAllowed($param, $function)
+    {
         $allowed_params = $this->allowedParams($function);
-        return in_array("$param!", $allowed_params) || in_array($param, $allowed_params) || (preg_match('/_[0-9]+$/', $param) && in_array("target_N", $allowed_params) && strpos($param,'target_') !== false);
+        return in_array("$param!", $allowed_params) || in_array($param, $allowed_params) || (preg_match('/_[0-9]+$/', $param) && in_array("target_N", $allowed_params) && strpos($param, 'target_') !== false);
     }
 
     /**
@@ -312,10 +320,11 @@ class KasApi {
      *
      * @param string $function
      * @param array $given_params
-     * @throws KasApiException
      * @return void
+     * @throws KasApiException
      */
-    protected function ensureFunctionParams($function, $given_params) {
+    protected function ensureFunctionParams($function, $given_params)
+    {
 
         // ensure every required param is there
         $params = $this->requiredParams($function);
@@ -336,10 +345,11 @@ class KasApi {
      *
      * @param string $name
      * @param string $arguments
-     * @throws KasApiException
      * @return Object
+     * @throws KasApiException
      */
-    public function __call($name, $arguments) {
+    public function __call($name, $arguments)
+    {
         if ($this->functionExists($name)) {
             $params = $this->getParamsFromArguments($arguments);
             $this->ensureFunctionParams($name, $params);

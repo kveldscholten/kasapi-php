@@ -30,9 +30,9 @@ $kasConfiguration = new KasApi\KasConfiguration($username, $authData, $authType)
 ```
 `$username` is quite self explaining. The KAS API allows for different types of authentication. Thus, you need to specify an authentication type and the corresponding authentication data, which could be a hashed password. Have a look at the documentation of All-Inkl to obtain a list of possible authentication methods.
 
-As an example, assume you want to use `plain` as authentication method. In this case, `$authType` simply would be `plain`, and `$authData` should be set to the plain Passwort of your KAS account. Assuming your username is `abcd1234` and your password is `password`, the following line would create the correct credential object:
+As an example, assume you want to use `plain` as authentication method. In this case, `$authType` simply would be `plain`, and `$authData` should be set to the plain Password of your KAS account. Assuming your username is `w0123456` and your password is `password`, the following line would create the correct credential object:
 ```
-$kasConfiguration = new KasApi\KasConfiguration("abcd1234", "password", "plain");
+$kasConfiguration = new KasApi\KasConfiguration("w0123456", "password", "plain");
 ```
 
 Next, you need to create an KasApi object to operate on:
@@ -49,7 +49,7 @@ Examples from the KasApi class might look like this:
 ```
 private $functions = array(
   [...]
-  'get_dns_settings'        => 'zone_host!, nameserver, record_id',
+  'get_dns_settings'        => 'zone_host!, record_id',
   'get_domains'             => 'domain_name',
   'get_topleveldomains'     => '',
   'get_ftpusers'            => 'ftp_login',
@@ -66,7 +66,7 @@ $kasApi->get_dns_settings(array(
   'record_id' => 123
 ));
 ```
-is perfectly valid. Notice we omitted the `nameserver` parameter, which is optional, but we included the `zone_host`, which is required in every case.
+is perfectly valid.
 
 ### Usage without Composer
 
@@ -79,7 +79,7 @@ foreach (glob("src/KasApi/*.php") as $filename) {
     require_once $filename; // include kasapi-php
 }
 
-$kasConfiguration = new KasConfiguration("abcd1234", "password", "plain");
+$kasConfiguration = new KasConfiguration("w0123456", "password", "plain");
 $kasApi = new KasApi($kasConfiguration);
 
 try {
