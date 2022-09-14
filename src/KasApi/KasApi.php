@@ -96,24 +96,26 @@ class KasApi
     protected $kasConfiguration;
 
     /**
-     * @var String kasFloodDelay return value of last API call
+     * kasFloodDelay return value of last API call
+     *
+     * @var int
      */
     protected $kasFloodDelay;
 
     /**
-     * @var int $nextCallTimestamp Timestamp of when the next api call is allowed
+     * Timestamp of when the next api call is allowed
+     *
+     * @var int
      */
     protected $nextCallTimestamp = 0;
 
     /**
-     * @return String
+     * @return string
      */
     public function getKasFloodDelay()
     {
         return $this->kasFloodDelay;
     }
-
-    // contains all API functions and their parameters, adjust if the KAS API was updated
 
     /**
      * Contains every API function and its parameters.
@@ -233,10 +235,10 @@ class KasApi
             $client = $kasSoapClient->getInstance();
             $result = $client->KasApi(json_encode($data));
             $this->kasFloodDelay = $result['Response']['KasFloodDelay'];
-            $this->nextCallTimestamp = time() + (int)$this->kasFloodDelay;
+            $this->nextCallTimestamp = time() + $this->kasFloodDelay;
             return $result['Response']['ReturnInfo'];
         } catch (SoapFault $fault) {
-            throw new KasApiException('Unable to execute SOAP call ' . $function . ': ' . (isset($fault->faultstring) ? $fault->faultstring : ""), (isset($fault->faultcode) ? $fault->faultcode : ""), (isset($fault->faultstring) ? $fault->faultstring : ""), (isset($fault->faultfactor) ? $fault->faultfactor : ""), (isset($fault->detail) ? $fault->detail : ""));
+            throw new KasApiException("SOAP-ENV:Server", 'Unable to execute ' . $function . ': ' . (isset($fault->faultstring) ? $fault->faultstring : ""), (isset($fault->faultactor) ? $fault->faultactor : null), (isset($fault->detail) ? $fault->detail : null));
         }
     }
 
@@ -325,16 +327,15 @@ class KasApi
      */
     protected function ensureFunctionParams($function, $given_params)
     {
-
         // ensure every required param is there
         $params = $this->requiredParams($function);
         foreach ($params as $param)
             if (!array_key_exists($param, $given_params))
-                throw new KasApiException("API parameter '$param' not given");
+                throw new KasApiException("SOAP-ENV:Server", "Parameter '$param' not given", "KasApi");
         // ensure every given param is allowed
         foreach ($given_params as $param => $value)
             if (!$this->paramIsAllowed($param, $function))
-                throw new KasApiException("API parameter '$param' may not be used");
+                throw new KasApiException("SOAP-ENV:Server", "Parameter '$param' may not be used", "KasApi");
     }
 
     /**
@@ -355,6 +356,6 @@ class KasApi
             $this->ensureFunctionParams($name, $params);
             return $this->call($name, $params);
         } else
-            throw new KasApiException("API function '$name' does not exist");
+            throw new KasApiException("SOAP-ENV:Server", "Function '$name' does not exist", "KasApi");
     }
 }

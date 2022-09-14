@@ -23,39 +23,21 @@ class KasApiException extends Exception
     /**
      * Constructor for this Exception
      *
-     * @param string $message
      * @param string $faultcode
      * @param string $faultstring
-     * @param string $faultfactor
-     * @param string $detail
+     * @param ?string $faultactor
+     * @param mixed $detail
      */
-    public function __construct($message, $faultcode = "", $faultstring = "", $faultfactor = "", $detail = "")
+    public function __construct($faultcode, $faultstring, $faultactor = null, $detail = null)
     {
-        parent::__construct($message);
         $this->faultcode = $faultcode;
         $this->faultstring = $faultstring;
-        $this->faultactor = $faultfactor;
+        $this->faultactor = $faultactor;
         $this->detail = $detail;
     }
 
     /**
      * @return string
-     */
-    public function getDetail()
-    {
-        return $this->detail;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFaultactor()
-    {
-        return $this->faultactor;
-    }
-
-    /**
-     * @return mixed
      */
     public function getFaultcode()
     {
@@ -68,5 +50,21 @@ class KasApiException extends Exception
     public function getFaultstring()
     {
         return $this->faultstring;
+    }
+
+    /**
+     * @return ?string
+     */
+    public function getFaultactor()
+    {
+        return $this->faultactor;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDetail()
+    {
+        return $this->detail;
     }
 } 
