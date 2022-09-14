@@ -28,7 +28,7 @@ Whenever you want to use the API, you need to create a KasConfiguration object f
 ```
 $kasConfiguration = new KasApi\KasConfiguration($username, $authData, $authType);
 ```
-`$username` is quite self explaining. The KAS API allows for different types of authentication. Thus, you need to specify an authentication type and the corresponding authentication data, which could be a hashed password. Have a look at the documentation of All-Inkl to obtain a list of possible authentication methods.
+`$username` is quite self explaining. The KAS API allows for different types of authentication. Thus, you need to specify an authentication type and the corresponding authentication data. Have a look at the documentation of All-Inkl to obtain a list of possible authentication methods.
 
 As an example, assume you want to use `plain` as authentication method. In this case, `$authType` simply would be `plain`, and `$authData` should be set to the plain Password of your KAS account. Assuming your username is `w0123456` and your password is `password`, the following line would create the correct credential object:
 ```
@@ -47,7 +47,7 @@ $kasApi->get_databases();
 Examples from the KasApi class might look like this:
 
 ```
-private $functions = array(
+protected $functions = array(
   [...]
   'get_dns_settings'        => 'zone_host!, record_id',
   'get_domains'             => 'domain_name',
@@ -86,7 +86,7 @@ try {
   $kasData = $kasApi->get_domains(); // any API function as described above
   var_dump($kasData); // $kasData is a plain old PHP array
 } catch(KasApiException $e) {
-  echo $e->getMessage(); // show message on SOAP error
+  echo $e->getFaultstring(); // show message on SOAP error
 }
 
 ?>
