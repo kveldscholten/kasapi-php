@@ -1,13 +1,14 @@
 {
   "name": "kveldscholten/kasapi-php",
   "description": "Manage your All-Inkl account with the KAS API for PHP",
-  "keywords": ["all-inkl", "API", "KAS", "PHP", "WSDL"],
+  "keywords": ["all-inkl", "kas", "kasserver", "api", "php", "wsdl", "soap"],
   "homepage": "https://github.com/kveldscholten/kasapi-php",
   "license": "MIT",
   "authors": [
     {
       "name": "Kevin Veldscholten",
-      "email": "kevin_veldscholten@web.de"
+      "email": "kevin_veldscholten@web.de",
+      "homepage": "https://github.com/kveldscholten/kasapi-php"
     },
     {
       "name": "Daniel Herrmann",
@@ -26,6 +27,8 @@
     }
   },
   "require": {
+    "php": ">=7.0",
+    "ext-json": "*",
     "ext-soap": "*"
   }
 }

@@ -2,6 +2,8 @@
 
 namespace KasApi;
 
+use SoapClient;
+
 /**
  * Creates SoapClients for KAS Authentication and API
  *
@@ -21,7 +23,7 @@ class KasSoapClient
      */
     function __construct($wsdl)
     {
-        $this->instance = new \SoapClient($wsdl);
+        $this->instance = new SoapClient($wsdl);
     }
 
     /**

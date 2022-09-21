@@ -7,7 +7,6 @@ use Exception;
 /**
  * Exception class which is thrown when an error occurs while the usage of the KAS API
  *
- * Class KasApiException
  * @package KasApi
  */
 class KasApiException extends Exception
@@ -28,12 +27,14 @@ class KasApiException extends Exception
      * @param ?string $faultactor
      * @param mixed $detail
      */
-    public function __construct($faultcode, $faultstring, $faultactor = null, $detail = null)
+    public function __construct($faultcode = "", $faultstring = "", $faultactor = null, $detail = null)
     {
         $this->faultcode = $faultcode;
         $this->faultstring = $faultstring;
         $this->faultactor = $faultactor;
         $this->detail = $detail;
+
+        parent::__construct($faultstring);
     }
 
     /**

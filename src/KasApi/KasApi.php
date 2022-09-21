@@ -96,34 +96,12 @@ class KasApi
     protected $kasConfiguration;
 
     /**
-     * kasFloodDelay return value of last API call
-     *
-     * @var int
-     */
-    protected $kasFloodDelay;
-
-    /**
-     * Timestamp of when the next api call is allowed
-     *
-     * @var int
-     */
-    protected $nextCallTimestamp = 0;
-
-    /**
-     * @return string
-     */
-    public function getKasFloodDelay()
-    {
-        return $this->kasFloodDelay;
-    }
-
-    /**
      * Contains every API function and its parameters.
      * Adjust if the KAS API is updated; ! means required parameter
      *
      * @var array
      */
-    protected $functions = array(
+    protected $functions = [
         'get_accountresources' => '',
         'get_accounts' => 'account_login',
         'get_accountsettings' => '',
@@ -198,8 +176,8 @@ class KasApi
         'add_dkim' => 'host!, check_foreign_nameserver',
         'delete_dkim' => 'host!',
         'update_ssl' => 'hostname!, ssl_certificate_is_active, ssl_certificate_sni_csr, ssl_certificate_sni_key!, ssl_certificate_sni_crt!, ssl_certificate_sni_bundle, ssl_certificate_force_https, ssl_certificate_hsts_max_age',
-        'add_symlink' => 'symlink_target!, symlink_name!',
-    );
+        'add_symlink' => 'symlink_target!, symlink_name!'
+    ];
 
     /**
      * Sets KasConfiguration
@@ -208,6 +186,8 @@ class KasApi
      */
     function __construct($kas_configuration)
     {
+        @session_start();
+
         $this->kasConfiguration = $kas_configuration;
     }
 
@@ -220,25 +200,23 @@ class KasApi
      * @return string
      * @throws KasApiException
      */
-    protected function call($function, $params = array())
+    protected function call($function, $params)
     {
         try {
-            if ($this->kasConfiguration->_autoDelayApiCalls && ($now = time()) < $this->nextCallTimestamp) {
-                sleep($this->nextCallTimestamp - $now);
-            }
-            $data = array('KasUser' => $this->kasConfiguration->_username,
+            if ($this->kasConfiguration->_autoDelayApiCalls && (isset($_SESSION['KasNextCallTimestamp']) && ($now = time()) < $_SESSION['KasNextCallTimestamp']))
+                sleep($_SESSION['KasNextCallTimestamp'] - $now);
+            unset($_SESSION['KasNextCallTimestamp']);
+            $data = ['KasUser' => $this->kasConfiguration->_login,
                 'KasAuthType' => $this->kasConfiguration->_authType,
                 'KasAuthData' => $this->kasConfiguration->_authData,
                 'KasRequestType' => $function,
-                'KasRequestParams' => $params);
-            $kasSoapClient = new KasSoapClient($this->kasConfiguration->wsdl_api);
-            $client = $kasSoapClient->getInstance();
-            $result = $client->KasApi(json_encode($data));
-            $this->kasFloodDelay = $result['Response']['KasFloodDelay'];
-            $this->nextCallTimestamp = time() + $this->kasFloodDelay;
+                'KasRequestParams' => $params];
+            $kasSoapClient = (new KasSoapClient($this->kasConfiguration->wsdl_api))->getInstance();
+            $result = $kasSoapClient->KasApi(json_encode($data));
+            $_SESSION['KasNextCallTimestamp'] = time() + $result['Response']['KasFloodDelay'];
             return $result['Response']['ReturnInfo'];
         } catch (SoapFault $fault) {
-            throw new KasApiException("SOAP-ENV:Server", 'Unable to execute ' . $function . ': ' . (isset($fault->faultstring) ? $fault->faultstring : ""), (isset($fault->faultactor) ? $fault->faultactor : null), (isset($fault->detail) ? $fault->detail : null));
+            throw new KasApiException("SOAP-ENV:Server", ($fault->faultstring ?? ""), ($fault->faultactor ?? null), ($fault->detail ?? null));
         }
     }
 
@@ -250,7 +228,7 @@ class KasApi
      */
     protected function functionExists($function)
     {
-        return array_key_exists($function, $this->functions) ? true : false;
+        return array_key_exists($function, $this->functions);
     }
 
     /**
@@ -261,7 +239,7 @@ class KasApi
      */
     protected function paramIsRequired($param)
     {
-        return substr($param, -1) === "!" ? true : false;
+        return substr($param, -1) === "!";
     }
 
     /**
@@ -272,7 +250,7 @@ class KasApi
      */
     protected function getParamsFromArguments($arguments)
     {
-        return isset($arguments[0]) ? $arguments[0] : array();
+        return $arguments[0] ?? [];
     }
 
     /**
@@ -291,12 +269,12 @@ class KasApi
      * Returns an array of required parameters for an API function
      *
      * @param string $function
-     * @return String[]
+     * @return string[]
      */
     protected function requiredParams($function)
     {
         $params = array_map('trim', explode(',', $this->functions[$function]));
-        $required_params = array();
+        $required_params = [];
         foreach ($params as $param)
             if ($this->paramIsRequired($param))
                 $required_params[] = str_replace('!', '', $param);
@@ -341,21 +319,21 @@ class KasApi
     /**
      * Is called whenever an API call is requested, then validates and executes the call.
      * e.g.: KasApi::get_domains();
-     * or: KasApi::get_dns_settings(array('zone_host' => 'example.com.'));
-     * $functions describes which functions may be called and what params are valid
+     * or: KasApi::get_dns_settings(['zone_host' => 'example.com.']);
+     * $function describes which function may be called and what params are valid
      *
-     * @param string $name
-     * @param string $arguments
-     * @return Object
+     * @param string $function
+     * @param array $arguments
+     * @return string
      * @throws KasApiException
      */
-    public function __call($name, $arguments)
+    public function __call($function, $arguments)
     {
-        if ($this->functionExists($name)) {
+        if ($this->functionExists($function)) {
             $params = $this->getParamsFromArguments($arguments);
-            $this->ensureFunctionParams($name, $params);
-            return $this->call($name, $params);
+            $this->ensureFunctionParams($function, $params);
+            return $this->call($function, $params);
         } else
-            throw new KasApiException("SOAP-ENV:Server", "Function '$name' does not exist", "KasApi");
+            throw new KasApiException("SOAP-ENV:Server", "Function '$function' does not exist", "KasApi");
     }
 }

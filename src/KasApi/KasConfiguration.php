@@ -10,14 +10,14 @@ namespace KasApi;
 class KasConfiguration
 {
     /**
-     * KAS username
+     * KAS login
      *
      * @var string
      */
-    public $_username;
+    public $_login;
 
     /**
-     * KAS Auth String
+     * KAS password
      *
      * @var string
      */
@@ -48,14 +48,14 @@ class KasConfiguration
     /**
      * Creates a new Configuration object with the given parameters
      *
-     * @param string $username
+     * @param string $login
      * @param string $authData
      * @param string $authType
      * @param bool $autoDelayApiCalls
      */
-    function __construct($username, $authData, $authType, $autoDelayApiCalls = true)
+    function __construct($login, $authData, $authType, $autoDelayApiCalls = true)
     {
-        $this->_username = $username;
+        $this->_login = $login;
         $this->_authData = $authData;
         $this->_authType = $authType;
         $this->_autoDelayApiCalls = $autoDelayApiCalls;
