@@ -96,6 +96,18 @@ class KasApi
     protected $kasConfiguration;
 
     /**
+     * @var String kasFloodDelay return value of last API call
+     */
+    protected $kasFloodDelay;
+
+    /**
+     * @return String
+     */
+    public function getKasFloodDelay() {
+        return $this->kasFloodDelay;
+    }
+
+    /**
      * Contains every API function and its parameters.
      * Adjust if the KAS API is updated; ! means required parameter
      *
@@ -186,8 +198,6 @@ class KasApi
      */
     function __construct($kas_configuration)
     {
-        @session_start();
-
         $this->kasConfiguration = $kas_configuration;
     }
 
@@ -203,9 +213,9 @@ class KasApi
     protected function call($function, $params)
     {
         try {
-            if ($this->kasConfiguration->_autoDelayApiCalls && (isset($_SESSION['KasNextCallTimestamp']) && ($now = time()) < $_SESSION['KasNextCallTimestamp']))
-                sleep($_SESSION['KasNextCallTimestamp'] - $now);
-            unset($_SESSION['KasNextCallTimestamp']);
+            if ($this->kasConfiguration->_autoDelayApiCalls && $this->kasFloodDelay) {
+                sleep(ceil((int)$this->kasFloodDelay));
+            }
             $data = ['KasUser' => $this->kasConfiguration->_login,
                 'KasAuthType' => $this->kasConfiguration->_authType,
                 'KasAuthData' => $this->kasConfiguration->_authData,
@@ -213,10 +223,10 @@ class KasApi
                 'KasRequestParams' => $params];
             $kasSoapClient = (new KasSoapClient($this->kasConfiguration->wsdl_api))->getInstance();
             $result = $kasSoapClient->KasApi(json_encode($data));
-            $_SESSION['KasNextCallTimestamp'] = time() + $result['Response']['KasFloodDelay'];
+            $this->kasFloodDelay = $result['Response']['KasFloodDelay'];
             return $result['Response']['ReturnInfo'];
         } catch (SoapFault $fault) {
-            throw new KasApiException("SOAP-ENV:Server", ($fault->faultstring ?? ""), ($fault->faultactor ?? null), ($fault->detail ?? null));
+            throw $fault;
         }
     }
 
