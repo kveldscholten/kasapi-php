@@ -213,9 +213,8 @@ class KasApi
     protected function call($function, $params)
     {
         try {
-            if ($this->kasConfiguration->_autoDelayApiCalls && $this->kasFloodDelay) {
+            if ($this->kasConfiguration->_autoDelayApiCalls && $this->kasFloodDelay)
                 sleep(ceil((int)$this->kasFloodDelay));
-            }
             $data = ['KasUser' => $this->kasConfiguration->_login,
                 'KasAuthType' => $this->kasConfiguration->_authType,
                 'KasAuthData' => $this->kasConfiguration->_authData,
@@ -226,7 +225,7 @@ class KasApi
             $this->kasFloodDelay = $result['Response']['KasFloodDelay'];
             return $result['Response']['ReturnInfo'];
         } catch (SoapFault $fault) {
-            throw $fault;
+            throw new KasApiException("SOAP-ENV:Server", ($fault->faultstring ?? ""), ($fault->faultactor ?? null), ($fault->detail ?? null));
         }
     }
 

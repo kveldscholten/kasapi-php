@@ -102,7 +102,7 @@ var_dump($kasData); // $kasData is a plain old PHP array
 ```
 
 ## Feedback? Issues?
-If you have any feedback, please provide it as comment or [create an issue](https://github.com/kveldscholten/kasapi-php/issue).
+If you have any feedback, please provide it as comment or [create an issue](https://github.com/kveldscholten/kasapi-php/issues).
 
 ## Credits
 
